@@ -2,8 +2,8 @@
 <!-- saved from url=(0070)http://chatbuilder.hackreactor.com/chatbuilder.html?=&username=Patrick -->
 <html><head><meta http-eqqwwquiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Chatbuilder</title>
-    <script src="./Chatbuilder_files/ChatBuilder.js"></script>
+    <title>PATTY'S Chatbuilder</title>
+    <script src="http://chatbuilder.hackreactor.com/ChatBuilder.js"></script>
   <style type="text/css"></style><style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
 .en-markup-crop-options {
     top: 18px !important;
@@ -15,7 +15,7 @@
 }
 
 .en-markup-crop-options div div:first-of-type {
-    margin-left: 0px !important;
+  margin-left: 0px !important;
 }
 </style></head>
   <body>
@@ -24,28 +24,44 @@
 Not quite, you're supposed to follow the instructions in the HTML page source about saving as a local local file and uncommenting a line there!
 -->
 
-    <h2>Borken Chat</h2>
+  <h2><span style="text-decoration: line-through;">Broken</span> FIXED Chat</h2>
 
-    <input class="draft" type="text"> <button class="send">Send</button>
-
-    <ul class="messages">
-    </ul>
-
-  
+  <input class="draft" type="text"> <button class="send">Send</button>
+  <div id="textDiv">
+  <div id="nested"></div>
+  </div>  
+  <ul class="messages">
+  </ul>
 
 <script>
-
-function doStuff() {
+function getNewestChatMessages() {
   Chat.fetch(function(e) {
+    $('.messages').empty();
     for (var i = 0; i < e.length; i++) { 
       Chat.display(e[i]);
     }
   });
-
-  // console.log("sent Chat fetch");
 }
 
-setInterval(doStuff, 3000);
+function sendChatFromInput() {
+  draftSelector = $(".draft");
+  Chat.send(draftSelector.val());
+  draftElem.val("");
+}
 
+$(document).ready(function() {
+  setInterval(getNewestChatMessages, 3000);
+  
+  $('.send').on('click', function() {
+    sendChatFromInput();
+  });
+
+  $('.draft').keypress(function(e) {
+    var key = e.which;
+    if(key == 13) {
+      sendChatFromInput();
+    }
+  });
+});
 </script>
 </body></html>
